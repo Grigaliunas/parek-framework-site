@@ -13,9 +13,6 @@ body {
     padding: 5px 10px;
     border-bottom: 1px solid #696969;
     font-weight: bold;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .emacs-buffer {
@@ -23,6 +20,7 @@ body {
     border: 1px solid #696969;
     margin: 10px 0;
     padding: 15px;
+    font-family: 'Courier New', monospace;
 }
 
 .emacs-modeline {
@@ -31,9 +29,6 @@ body {
     padding: 3px 10px;
     border-top: 1px solid #696969;
     font-size: 0.9em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .highlighted {
@@ -91,40 +86,25 @@ a:hover {
 .org-list {
     margin-left: 20px;
     list-style-type: none;
-    padding-left: 0;
 }
 
-.org-list li::before {
+.org-list li:before {
     content: "- ";
     color: #7f9f7f;
 }
 
 .nav-links {
-    margin: 10px 0 20px 0;
+    margin: 10px 0;
 }
 
 .nav-links a {
-    margin-right: 1em;
+    margin-right: 10px;
 }
 
-.counters {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: #2f2f2f;
-    border-top: 1px solid #696969;
-    padding: 5px 20px;
-    font-size: 0.9em;
-    display: flex;
-    justify-content: space-between;
-}
-
-.counter-label {
+footer {
+    margin-top: 40px;
+    border-top: 1px dashed #505050;
+    padding-top: 10px;
     color: #7f9f7f;
-}
-
-.counter-value {
-    color: #f0dfaf;
-    font-weight: bold;
+    font-size: 0.9em;
 }
