@@ -1,9 +1,8 @@
 # PAREK Framework Website
 
-Welcome to the **PAREK Framework Website** — an Emacs‑styled, multi‑page portal that presents the **P**ost‑quantum **A**sset & Algorithm Inventory, **R**isk Assessment, **E**xecution, and **K**ey‑governance (PAREK) methodology.
+Welcome to the **PAREK Framework Website** — an multi‑page portal that presents the **P**ost‑quantum **A**sset & Algorithm Inventory, **R**isk Assessment, **E**xecution, and **K**ey‑governance (PAREK) methodology.
 
 Live instance: **<https://www.pqc.lt>**  
-Contact: **pagalba@pqc.lt**
 
 ---
 
