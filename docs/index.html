@@ -1,59 +1,712 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="lt">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PAREK Framework Portal - PAREK Framework</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PQC.LT - Lietuvos Post-Quantum Cryptography Strategija</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --lt-yellow: #fdb819;
+            --lt-green: #009639;
+            --lt-red: #c1272d;
+            --eu-blue: #003d8f;
+            --light-blue: #e8f4fd;
+            --dark-blue: #002c6b;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-600: #6c757d;
+            --gray-800: #343a40;
+            --quantum-purple: #6f42c1;
+            --quantum-teal: #20c997;
+            --accent-orange: #fd7e14;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--gray-800);
+            background: linear-gradient(135deg, var(--light-blue) 0%, #ffffff 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--lt-yellow) 0%, var(--lt-green) 50%, var(--lt-red) 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .lt-flag {
+            width: 48px;
+            height: 32px;
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+            background: linear-gradient(to bottom, var(--lt-yellow) 0% 33.33%, var(--lt-green) 33.33% 66.66%, var(--lt-red) 66.66% 100%);
+        }
+
+        .site-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            opacity: 0.95;
+            margin-top: 0.25rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .nav {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 0.75rem 0;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 2rem;
+            padding: 0 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            background: white;
+            color: var(--lt-green);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3rem 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(20, 20, 40, 0.95) 100%);
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><text x="10" y="30" font-family="serif" font-size="16" fill="rgba(255,255,255,0.1)">∀x∈𝒬: Harvest(x) → Decrypt(x)</text><text x="10" y="60" font-family="serif" font-size="14" fill="rgba(255,255,255,0.08)">when Quantum ≥ Useful</text><text x="10" y="90" font-family="serif" font-size="12" fill="rgba(255,255,255,0.06)">PQC = lim[t→2035] Secure(Crypto)</text><text x="10" y="120" font-family="serif" font-size="16" fill="rgba(255,255,255,0.1)">∫[2024→2035] ∂Security/∂t dt</text><text x="10" y="150" font-family="serif" font-size="14" fill="rgba(255,255,255,0.08)">PAREK: P∧A∧R∧E∧K → Σ(Safety)</text><text x="10" y="180" font-family="serif" font-size="12" fill="rgba(255,255,255,0.06)">ℚ-resistance = f(NIST, ETSI)</text></svg>') repeat;
+            animation: mathFloat 25s infinite linear;
+        }
+
+        @keyframes mathFloat {
+            0% { transform: translateY(0) translateX(0); }
+            100% { transform: translateY(-200px) translateX(-50px); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--lt-yellow), #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--lt-green), var(--quantum-purple));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 150, 57, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--gray-100);
+            color: var(--gray-800);
+            border: 2px solid var(--gray-200);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-200);
+            transform: translateY(-2px);
+        }
+
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .strategy-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--lt-green);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .strategy-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--lt-yellow), var(--accent-orange));
+            border-radius: 0 15px 0 100%;
+            opacity: 0.1;
+        }
+
+        .strategy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--lt-green), var(--quantum-teal));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .timeline {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline h2 {
+            color: var(--lt-green);
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--gray-100);
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .timeline-date {
+            background: var(--lt-green);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            min-width: 140px;
+            text-align: center;
+            margin-right: 2rem;
+        }
+
+        .timeline-content h3 {
+            color: var(--quantum-purple);
+            margin-bottom: 0.5rem;
+        }
+
+        .parek-overview {
+            background: linear-gradient(135deg, var(--quantum-purple), var(--quantum-teal));
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .parek-steps {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .parek-step {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            flex: 1;
+            min-width: 180px;
+            max-width: 200px;
+        }
+
+        .parek-step h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--lt-yellow);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--lt-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .documents-section {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            margin: 3rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .document-card {
+            background: var(--gray-100);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--lt-green);
+            transition: transform 0.3s ease;
+        }
+
+        .document-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .document-title {
+            font-weight: 700;
+            color: var(--lt-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .document-type {
+            background: var(--lt-green);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .footer {
+            background: var(--gray-800);
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--lt-yellow);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            color: var(--gray-200);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--lt-yellow);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--gray-600);
+            color: var(--gray-200);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-content {
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .timeline-date {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .parek-steps {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="emacs-header">
-    -UUU:----F1  index.html    All L1    (HTML+) ----------------
-</div>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="lt-flag"></div>
+                <div>
+                    <h1 class="site-title">PQC.LT</h1>
+                    <p class="tagline">Lietuvos kvantinio saugumo strategija</p>
+                </div>
+            </div>
+        </div>
+        <nav class="nav">
+            <div class="nav-content">
+                <a href="#apzvalga" class="nav-link active">Apžvalga</a>
+                <a href="#strategija" class="nav-link">Strategija</a>
+                <a href="#grafik" class="nav-link">Grafikas</a>
+                <a href="#parek" class="nav-link">PAREK</a>
+                <a href="#dokumentai" class="nav-link">Dokumentai</a>
+                <a href="#kontaktai" class="nav-link">Kontaktai</a>
+            </div>
+        </nav>
+    </header>
 
-<div class="emacs-buffer">
-<div class="comment">;; -*- mode: org; coding: utf-8 -*-</div>
-<div class="comment">;; PAREK Framework Website</div>
+    <main class="container">
+        <section class="hero" id="apzvalga">
+            <div class="hero-content">
+                <h1>Lietuva – kvantinio saugumo lyderė 2035</h1>
+                <p>Užtikriname Lietuvos skaitmeninės infrastruktūros atsparumą kvantiniams grėsmėms per koordinuotą perėjimą prie postkvantinės kriptografijos (PQC) pagal ES strategijas ir nacionalinius prioritetus.</p>
+                <div class="cta-buttons">
+                    <a href="#strategija" class="btn btn-primary">
+                        🚀 Tyrinėti strategiją
+                    </a>
+                    <a href="#grafik" class="btn btn-secondary">
+                        📅 Žiūrėti grafiką
+                    </a>
+                </div>
+            </div>
+        </section>
 
-<h1>#+TITLE: PAREK Framework Portal</h1>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">7</div>
+                <p>Rekomenduojamų strateginių dokumentų skaičius pilnam pasiruošimui</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2026</div>
+                <p>Pirmojo etapo užbaigimo data - „First Steps" įgyvendinimas</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2030</div>
+                <p>Aukštos rizikos sistemų PQC migracijos užbaigimas</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2035</div>
+                <p>Galutinis ES PQC perėjimo terminas visoms sistemoms</p>
+            </div>
+        </div>
 
-<div class="nav-links">
-<a href="index.html">[Home]</a>
-<a href="framework.html">[Framework]</a>
-<a href="objectives.html">[Objectives]</a>
-<a href="features.html">[Features]</a>
-<a href="progress.html">[Progress]</a>
-</div>
+        <section class="strategy-grid" id="strategija">
+            <div class="strategy-card">
+                <div class="card-icon">📋</div>
+                <h3>Nacionalinė PQC strategija</h3>
+                <p>Vizija, politika, derinimas su ES reglamentais (NIS-2, DORA, CRA). Pagrindinės atsakomybės ir institucinis koordinavimas.</p>
+            </div>
+            <div class="strategy-card">
+                <div class="card-icon">🗺️</div>
+                <h3>Įgyvendinimo kelrodis</h3>
+                <p>Detalus terminų grafikas, etapai, KPI, rizikos stebėsena, ataskaitų tvarka 2024-2035 m. laikotarpiui.</p>
+            </div>
+            <div class="strategy-card">
+                <div class="card-icon">🔧</div>
+                <h3>Techninis vadovas</h3>
+                <p>Inventorizacijos šablonai (CBOM), rizikos vertinimo metodika, hibridiniai algoritmai, testavimo scenarijai.</p>
+            </div>
+            <div class="strategy-card">
+                <div class="card-icon">🏭</div>
+                <h3>Sektoriniai gairės</h3>
+                <p>Konkretūs sektorių priklausomybių žemėlapiai, prioritetiniai „use-case" kritinei infrastruktūrai, finansams, sveikatai.</p>
+            </div>
+            <div class="strategy-card">
+                <div class="card-icon">📢</div>
+                <h3>Komunikacijos planas</h3>
+                <p>Tikslinės auditorijos, žinučių rinkiniai, viešinimo kalendorius ir sąmoningumo ugdymo kampanijos.</p>
+            </div>
+            <div class="strategy-card">
+                <div class="card-icon">🎓</div>
+                <h3>Kompetencijų ugdymas</h3>
+                <p>Mokymų keliai C-level, IT/OT specialistams, tiekimo grandinei. Ryšys su NCC/ECCC ir universitetais.</p>
+            </div>
+        </section>
 
-<div class="section">
-<h2>* Overview</h2>
-<p>PAREK (Post-Quantum Asset &amp; Algorithm Inventory, Risk Assessment, Road-mapping, Execution, Key-governance) is an EU-aligned methodology guiding organisations toward quantum-resilient cryptography.</p>
-</div>
+        <section class="timeline" id="grafik">
+            <h2>🗓️ Lietuvos PQC perėjimo grafikas</h2>
+            <div class="timeline-item">
+                <div class="timeline-date">2024 Q3 - 2025 Q2</div>
+                <div class="timeline-content">
+                    <h3>Pasiruošimo etapas</h3>
+                    <p><strong>Darbo grupės sudarymas:</strong> Tarpžinybinės darbo grupės formavimas, A ir B dokumentų projektų struktūros patvirtinimas, švietimo ir tiekimo grandinės dialogų pradžia.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2025 Q3 - 2026 Q4</div>
+                <div class="timeline-content">
+                    <h3>Pirmas etapas - Pagrindai</h3>
+                    <p><strong>First Steps įgyvendinimas:</strong> A, B, C dokumentų užbaigimas, kriptografinio inventoriaus sukūrimas valstybės sektoriuje, 3 pilotų paleidimas aukštos rizikos srityse.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2027 Q1 - 2029 Q4</div>
+                <div class="timeline-content">
+                    <h3>Next Steps diegimas</h3>
+                    <p><strong>Hibridiniai sprendimai:</strong> Crypto-agility diegimas pilotuose, sektorinių gairių rengimas, CRA reikalavimų įgyvendinimas nuo 2027-12-11, E ir F dokumentų realizavimas.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2030 Q1 - 2030 Q4</div>
+                <div class="timeline-content">
+                    <h3>Antras etapas - Aukšta rizika</h3>
+                    <p><strong>Kritinių sistemų apsauga:</strong> Visų aukštos rizikos sistemų migracija, quantum-safe atnaujinimai kaip numatytasis nustatymas, vidutinės rizikos sistemų pilotų užbaigimas.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2031 Q1 - 2034 Q4</div>
+                <div class="timeline-content">
+                    <h3>Plėtros etapas</h3>
+                    <p><strong>Skalės didinimas:</strong> Vidutinės rizikos sistemų diegimas, nuolatinis teisės aktų atnaujinimas, metiniai progreso auditai, finansavimo mechanizmų optimizavimas.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2035 Q1 - 2035 Q4</div>
+                <div class="timeline-content">
+                    <h3>Trečias etapas - Pilnas perėjimas</h3>
+                    <p><strong>Kvantinio saugumo Lietuva:</strong> Vidutinės rizikos sistemų užbaigimas, žemos rizikos sistemų migracija, naujos kartos strategijos paruošimas 2036-2040 m.</p>
+                </div>
+            </div>
+        </section>
 
-<div class="section">
-<h2>* Table of Contents</h2>
-<ul class="org-list">
-<li><a href="framework.html">PAREK Framework</a></li>
-<li><a href="objectives.html">Objectives</a></li>
-<li><a href="features.html">Features</a></li>
-<li><a href="progress.html">Progress (Status)</a></li>
-</ul>
-</div>
+        <section class="parek-overview" id="parek">
+            <h2>🎯 PAREK karkasas (Framework)</h2>
+            <p>Post-Quantum Asset & Algorithm Inventory, Risk Assessment, Road-mapping, Execution, and Key-governance metodika teikia struktūrizuotą ES masto kvantinio saugumo migracijos požiūrį, pritaikytą Lietuvos kontekstui.</p>
+            <div style="margin-top: 1.5rem; text-align: center;">
+                <a href="https://github.com/Grigaliunas/parek-framework" target="_blank" class="btn" style="background: rgba(255, 255, 255, 0.2); color: white; border: 2px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px);">
+                    📚 Daugiau informacijos GitHub
+                </a>
+            </div>
+            
+            <div class="parek-steps">
+                <div class="parek-step">
+                    <h3>P</h3>
+                    <h4>Inventorius</h4>
+                    <p>Post-kvantinių išteklių ir algoritmų identifikavimas naudojant CBOM metodiką</p>
+                </div>
+                <div class="parek-step">
+                    <h3>A</h3>
+                    <h4>Vertinimas</h4>
+                    <p>Kvantiškai koreguoto rizikos įvertinimo (QARS) skaičiavimas ir prioritetų nustatymas</p>
+                </div>
+                <div class="parek-step">
+                    <h3>R</h3>
+                    <h4>Kelrodis</h4>
+                    <p>Terminų planavimas ir išteklių paskirstymo strategijos formavimas</p>
+                </div>
+                <div class="parek-step">
+                    <h3>E</h3>
+                    <h4>Vykdymas</h4>
+                    <p>Hibridinės migracijos diegimas su atkūrimo galimybėmis</p>
+                </div>
+                <div class="parek-step">
+                    <h3>K</h3>
+                    <h4>Valdymas</h4>
+                    <p>Nuolatinis stebėjimas ir kriptografinio adaptatyvumo palaikymas</p>
+                </div>
+            </div>
+        </section>
 
-<div class="section">
-<h2>* Resources</h2>
-<ul class="org-list">
-<li><a href="https://github.com/Grigaliunas/parek-framework/">Source code on GitHub</a></li>
-</ul>
-</div>
+        <section class="documents-section" id="dokumentai">
+            <h2 style="color: var(--lt-green); text-align: center; margin-bottom: 2rem;">📄 Dokumentų rengimo schema</h2>
+            <p style="text-align: center; margin-bottom: 2rem; color: var(--gray-600);">Minimaliai reikia <strong>3</strong> pagrindinių dokumentų, optimaliai - <strong>7</strong> dokumentų pilnam pasiruošimui</p>
+            
+            <h3 style="color: var(--quantum-purple); margin-bottom: 1rem;">Privalomas minimumas (A-B-C):</h3>
+            <div class="documents-grid">
+                <div class="document-card">
+                    <div class="document-type">A - Privalomas</div>
+                    <h4 class="document-title">Nacionalinė PQC strategija</h4>
+                    <p>Vizija, politika, derinimas su ES reglamentais, pagrindinės atsakomybės. Be šio dokumento negalima priimti ilgalaikių politinių sprendimų.</p>
+                </div>
+                <div class="document-card">
+                    <div class="document-type">B - Privalomas</div>
+                    <h4 class="document-title">Įgyvendinimo kelio žemėlapis</h4>
+                    <p>Detalus terminų grafikas, etapai, KPI, rizikos stebėsena. Reikalaujamas ES gairėse „First Steps" iki 2026-12-31, „Next Steps" iki 2030-12-31.</p>
+                </div>
+                <div class="document-card">
+                    <div class="document-type">C - Privalomas</div>
+                    <h4 class="document-title">Techninis organizacijų vadovas</h4>
+                    <p>Inventorizacijos šablonai (CBOM), rizikos vertinimo metodika, hibridiniai algoritmai, testavimo scenarijai. Užtikrina vienodą migracijos praktiką.</p>
+                </div>
+            </div>
 
-</div>
+            <h3 style="color: var(--quantum-purple); margin: 2rem 0 1rem 0;">Rekomenduojami papildomi (D-E-F-G):</h3>
+            <div class="documents-grid">
+                <div class="document-card">
+                    <div class="document-type">D - Rekomenduojamas</div>
+                    <h4 class="document-title">Sektorinis gairių rinkinys</h4>
+                    <p>Konkretūs sektorių priklausomybių žemėlapiai, „use-case" prioritetai kritinei infrastruktūrai, finansams, sveikatai.</p>
+                </div>
+                <div class="document-card">
+                    <div class="document-type">E - Rekomenduojamas</div>
+                    <h4 class="document-title">Komunikacijos ir sąmoningumo planas</h4>
+                    <p>Tikslinės auditorijos, žinučių rinkiniai, viešinimo kalendorius. Vienas iš „First Steps" punktų ES.</p>
+                </div>
+                <div class="document-card">
+                    <div class="document-type">F - Rekomenduojamas</div>
+                    <h4 class="document-title">Kompetencijų ugdymo programa</h4>
+                    <p>Mokymų keliai C-level, IT/OT, tiekimo grandinei. „Next Steps" reikalauja nuolatinių mokymų ir resursų skyrimo.</p>
+                </div>
+                <div class="document-card">
+                    <div class="document-type">G - Rekomenduojamas</div>
+                    <h4 class="document-title">Finansavimo & monitoringo schema</h4>
+                    <p>ES fondai, nacionaliniai biudžetai, metiniai pažangos rodikliai. Padeda užtikrinti „Next Steps" išteklius.</p>
+                </div>
+            </div>
+        </section>
+    </main>
 
-<div class="emacs-modeline">
-    -UUU:%%--F1  index.html    Bot L1    (HTML+) Git:main ----------------
-</div>
-<footer>
-<p>www.pqc.lt | <a href="mailto:hello@pqc.lt">hello@pqc.lt</a> | <a href="https://github.com/Grigaliunas/parek-framework/">GitHub Repository</a></p>
-</footer>
-</body>
-</html>
+    <footer class="footer" id="kontaktai">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>📞 Kontaktai</h3>
+                <a href="mailto:hell@pqc.lt">hell@pqc.lt</a>
+                <p style="margin-top: 1rem; font-size: 0.9rem;">Lietuvos postkvantinės kriptografijos iniciatyva</p>
+            </div>
